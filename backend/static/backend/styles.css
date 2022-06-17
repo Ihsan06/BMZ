@@ -1,0 +1,69 @@
+body {
+    padding: 50px;
+}
+
+nav {
+    display: block;
+}
+
+.BMZ-heading {
+    color: darkred;
+    padding-bottom: 50px;
+}
+
+.BMZ-heading .info {
+    color: black;
+}
+
+ul .nav {
+    padding-top: 20px;
+}
+
+
+.form-group {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 20%;
+}
+
+form {
+    padding-left: 10px;
+}
+
+/* JavaScript Part */
+@keyframes move {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: 50%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+
+.java {
+    position: relative;
+    animation-name: move;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+
+/* React */
+
+#app2 {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#problem {
+    font-size: 72px;
+}
+
+#winner {
+    font-size: 72px;
+    color: green;
+}
