@@ -30,40 +30,15 @@ form {
     padding-left: 10px;
 }
 
-/* JavaScript Part */
-@keyframes move {
-    0% {
-        left: 0;
-    }
-    50% {
-        left: 50%;
-    }
-    100% {
-        left: 0;
-    }
-}
-
-
-.java {
-    position: relative;
-    animation-name: move;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-}
-
-/* React */
-
-#app2 {
+.copyright {
     text-align: center;
-    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 0;
+    font-family: "Roboto", sans-serif;
 }
 
-#problem {
-    font-size: 72px;
+.laenderliste {
+    padding-top: 40px;
 }
 
-#winner {
-    font-size: 72px;
-    color: green;
-}

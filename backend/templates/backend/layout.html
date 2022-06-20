@@ -26,7 +26,6 @@
 </head>
 
 <body>
-
     <div class="container-fluid">
         <div class="BMZ-heading">
             <h1>Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</h1>
@@ -35,42 +34,54 @@
                 {% if user.is_authenticated %}
                     Angemeldet als <strong>{{ user.username }}</strong>.
                 {% else %}
-                    Nicht angemeldet.
+                    Sie sind nicht angemeldet.
                 {% endif %}
             </div>
         </div>
 
-            <ul class="nav navbar-light bg-light">
+        <!-- Navbar -->
+        <ul class="nav navbar-light bg-light">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Startseite</a>
+            </li>
+
+            {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Startseite</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Ausloggen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'react' %}">React-Test</a>
+                    <a class="nav-link" href="{% url 'country_management' %}">Länder-Management</a>
                 </li>
 
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Ausloggen</a>
-                    </li>
+            {% else %}
 
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Anmelden</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Registrieren</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Anmelden</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Registrieren</a>
+                </li>
 
-                {% endif %}
-            </ul> <br>
+            {% endif %}
+        </ul>
+
+        <br>
     </div>
 
+    <!-- Body -->
     <div class="container-fluid">
-
         {% block body %}
         {% endblock %}
-
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong> Ihsan Yilmaz </strong>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

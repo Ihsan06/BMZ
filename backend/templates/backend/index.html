@@ -2,30 +2,139 @@
 
 {% block body %}
 
-
     <div class="container-fluid">
-    <h1 class="java"><br>Willkommen im Datenlabor des BMZ<br><br></h1>
+    <h1 style="text-align: center"><br>Willkommen im Datenlabor des BMZ<br><br></h1>
 
     {% if user.is_authenticated %}
-        <h1>Auf geht's, {{  user.username }}!</h1>
+        <h3 style="text-align: center">Auf geht's, <strong>{{  user.username }}</strong>!</h3>
+
+        {% if message_project %}
+            <div>{{ message_project }}</div>
+        {% endif %}
+
+        <form action="{% url 'new_project' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus required type="text" name="name_project" placeholder="Name des Projektes">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5"  name="description" placeholder="Projektbezeichnung eingeben"></textarea>            </div>
+            <div class="form-group">
+
+            <select name="country">
+                {%  for country in countries %}
+                    <option value="{{  country.id }}">{{ country }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="date" name="start_project" placeholder="Start des Projekts>">
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" type="date" name="end_project" placeholder="Voraussichtliches Ende des Projekts>">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="number" name="budget_project" placeholder="Projektbudget">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="number" name="spend_budget_project" placeholder="Bereits ausgegebenes Projektbudget>">
+            </div>
+            <br>
+            <input class="btn btn-primary ihsan" type="submit" value="Projekt anlegen">
+        </form>
+
+            <div class="laenderliste">
+
+        <table style="width: 100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Land</th>
+                <th>Start</th>
+                <th>Ende</th>
+                <th>Budget</th>
+                <th>Ausgegeben</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for project in projects %}
+                  <tr>
+                      <td>{{ project }}</td>
+                      <td>{{ project.name_project }}</td>
+                      <td>{{ project.description }}</td>
+                      <td>{{ project.country }}</td>
+                      <td>{{ project.start_project }}</td>
+                      <td>{{ project.end_project }}</td>
+                      <td>{{ project.budget_project }}</td>
+                      <td>{{ project.spend_budget_project }}</td>
+
+                      <td><button style="width: 150px" onclick="hide_show({{ project.id }})">Ändern</button></td>
+                      <td>
+                          <form id="project_change{{ project.id }}" action="{% url 'change_project' %}" method="post" style="visibility: collapse; display: flex; flex-direction: row">
+                              {% csrf_token %}
+                              <div class="form-group">
+                                  <input class="form-control" autofocus required type="text" name="name_project" placeholder="Name des Projektes">
+                              </div>
+                              <div class="form-group">
+                                  <textarea class="form-control" rows="5"  name="description" placeholder="Projektbezeichnung eingeben"></textarea>            </div>
+                              <div class="form-group">
+                                  <select name="country">
+                                      {%  for project in projects %}
+                                          <option value="{{  country.id }}">{{ country }}</option>
+                                      {% endfor %}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control" type="date" name="start_project" placeholder="Start des Projekts>">
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control" type="date" name="end_project" placeholder="Voraussichtliches Ende des Projekts>">
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control" type="number" name="budget_project" placeholder="Projektbudget">
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control" type="number" name="spend_budget_project" placeholder="Bereits ausgegebenes Projektbudget>">
+                              </div>
+                              <br>
+                              <button type="submit" style="height: 80px">Projekt anlegen</button>
+                          </form>
+            {% empty %}
+                Keine Projekte vorhanden
+            {% endfor %}
+
+            <script>
+
+                function hide_show(id) {
+                    var element = document.getElementById('project_change' + id)
+
+                    if (element.style.visibility == 'visible'){
+                        element.style.visibility = 'hidden'
+                    }
+                    else {
+                        element.style.visibility = 'visible'
+                    }
+                }
+
+            </script>
+
+                  </tbody>
+
+                </table>
+
+                </div>
+
+                </div>
+
+
+
     {% else %}
-        <h6>>>Bitte melden Sie sich an oder registrieren Sie sich!<<</h6>
+        <p style="text-align: center">>>Bitte melden Sie sich an oder registrieren Sie sich!<<</p>
     {% endif %}
-    </div>
-
-    <br>
-    <br>
-
-    <button>Hier klicken für die Animation!</button>
-
-    <br>
-    <br>
-
-    <form>
-        <input id="currency" placeholder="Currency" type="text">
-        <input type="submit" value="Convert">
-    </form>
-    <div id="result"></div>
 
 
 
